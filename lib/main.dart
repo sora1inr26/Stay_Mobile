@@ -8,11 +8,15 @@ var token ='';
 
 void main() => runApp(MyApp());
 
+
+
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
     //token empty or notempty
-    if (token.isEmpty) {
+    if (token.isNotEmpty) {
         return new MaterialApp(
           
           title: 'Flutter',
