@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 class LoginIndex extends StatelessWidget {
   @override
@@ -32,7 +34,7 @@ class LoginIndex extends StatelessWidget {
               new inputEdtextPassWordWiget(),
               SizedBox(height: 30,),
               new loginButtonWiget(),
-              SizedBox(height: 120,),
+              SizedBox(height: 300,),
               new regButtonWiget(),
             ],
           )
@@ -170,6 +172,20 @@ class regButtonWiget extends StatelessWidget {
   }
 }
 
-void login(){
+void login() async{
   print("用户名" + userName + "密码" + password);
+
+    // This example uses the Google Books API to search for books about http.
+  // https://developers.google.com/books/docs/overview
+  var url = 'http://192.168.50.165/Test/Info';
+
+  // Await the http get response, then decode the json-formatted response.
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var jsonResponse = convert.jsonDecode(response.body);
+    var itemCount = jsonResponse['totalItems'];
+    print('Number of books about http: $itemCount.');
+  } else {
+    print('Request failed with status: ${response.statusCode}.');
+  }
 }
