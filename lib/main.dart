@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getUserToken();
-    print(token);
+    //print(token);
 
     //token empty or notempty
     if (token.isNotEmpty) {
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
     SharedPreferences prefs = await _prefs;
     String keyName = (enumData.localProp.userToken.toString());
     String strValue = prefs.getString(keyName); 
-    print(strValue);
+    //print(strValue);
     token = strValue;
   }
 }
