@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
+import 'package:stay/util/LocalData.dart';
 
 class LoginIndex extends StatelessWidget {
   @override
@@ -177,14 +178,16 @@ void login() async{
 
     // This example uses the Google Books API to search for books about http.
   // https://developers.google.com/books/docs/overview
-  var url = 'http://192.168.50.165/Test/Info';
+  var url = 'http://192.168.50.165/Account/GetToken';
 
   // Await the http get response, then decode the json-formatted response.
   var response = await http.get(url);
   if (response.statusCode == 200) {
     var jsonResponse = convert.jsonDecode(response.body);
-    var itemCount = jsonResponse['totalItems'];
-    print('Number of books about http: $itemCount.');
+    if(jsonResponse['code'] == 0){
+      String data = jsonResponse['data'];
+      setUserToken(data);
+    }
   } else {
     print('Request failed with status: ${response.statusCode}.');
   }

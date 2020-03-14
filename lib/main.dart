@@ -1,19 +1,29 @@
 import 'package:custom_navigator/custom_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stay/Models/EnumData.dart' as enumData;
 
 import 'LoginPages/LoginIndex.dart';
 import 'navi.dart';
 
-var token ='';
+Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-void main() => runApp(MyApp());
+
+//void main() => runApp(MyApp());
+void main(){
+  //if (token.isNotEmpty){
+  runApp(MyApp());
+}
 
 
 
 class MyApp extends StatelessWidget {
+  String token;
 
   @override
   Widget build(BuildContext context) {
+    getUserToken();
+    print(token);
 
     //token empty or notempty
     if (token.isNotEmpty) {
@@ -26,9 +36,17 @@ class MyApp extends StatelessWidget {
     }else{
         return new MaterialApp(
         title: 'Flutter',
-        home: LoginIndex() //MyHomePage()
+        home: LoginIndex()
       );
     }
+  }
+
+  void getUserToken() async{
+    SharedPreferences prefs = await _prefs;
+    String keyName = (enumData.localProp.userToken.toString());
+    String strValue = prefs.getString(keyName); 
+    print(strValue);
+    token = strValue;
   }
 }
 
@@ -89,5 +107,4 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 }
-
 
